@@ -1,0 +1,120 @@
+﻿@model CrudTestar.Models.Usuario
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Cadastrar Usuário</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create" id="formCadastro">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="nomeCompletoUsuario" class="control-label text-success"></label>
+                        <input asp-for="nomeCompletoUsuario" class="form-control" placeholder="Nome Completo" />
+                        <span asp-validation-for="nomeCompletoUsuario" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="nascimentoUsuario" class="control-label text-success"></label>
+                        <input asp-for="nascimentoUsuario" class="form-control" placeholder="Data de Nascimento" />
+                        <span asp-validation-for="nascimentoUsuario" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="cpfUsuario" class="control-label text-success"></label>
+                        <input asp-for="cpfUsuario" class="form-control" placeholder="CPF" id="cpf" />
+                        <span asp-validation-for="cpfUsuario" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="usuarioUsuario" class="control-label text-success"></label>
+                        <input asp-for="usuarioUsuario" class="form-control" placeholder="Nome de Usuário" />
+                        <span asp-validation-for="usuarioUsuario" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="emailUsuario" class="control-label text-success"></label>
+                        <input asp-for="emailUsuario" class="form-control" placeholder="Endereço de E-mail" />
+                        <span asp-validation-for="emailUsuario" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="telefoneUsuario" class="control-label text-success"></label>
+                        <input asp-for="telefoneUsuario" class="form-control" placeholder="Telefone" id="telefone" />
+                        <span asp-validation-for="telefoneUsuario" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="senhaUsuario" class="control-label text-success"></label>
+                        <input asp-for="senhaUsuario" type="password" class="form-control" placeholder="Escolha uma Senha" id="senha" />
+                        <span asp-validation-for="senhaUsuario" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="confirmarSenha" class="control-label text-success">Confirme a Senha</label>
+                        <input type="password" class="form-control" placeholder="Digite Novamente a Senha" id="confirmarSenha" />
+                        <span id="erroSenha" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="form-group">
+                <input id="cadastrar" type="submit" value="Cadastrar" class="btn btn-success btn-lg btn-block" />
+                <a class="btn btn-outline-secondary btn-lg btn-block" asp-action="Index">Voltar para a Lista</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <!-- Importando o jQuery e o jQuery Mask -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+    <!-- Aplicando as máscaras -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#telefone').mask('(00) 00000-0000');
+            $('#cpf').mask('000.000.000-00');
+
+            // Validação de senhas
+            $('#formCadastro').submit(function (e) {
+                var senha = $('#senha').val();
+                var confirmarSenha = $('#confirmarSenha').val();
+
+                if (senha !== confirmarSenha) {
+                    e.preventDefault(); // Impede o envio do formulário
+                    $('#erroSenha').text('As senhas não coincidem.');
+                } else {
+                    $('#erroSenha').text(''); // Limpa a mensagem de erro se as senhas coincidirem
+                }
+            });
+        });
+    </script>
+}
